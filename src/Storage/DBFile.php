@@ -7,6 +7,7 @@ use SilverStripe\Assets\ImageManipulation;
 use SilverStripe\Assets\Thumbnail;
 use SilverStripe\Control\Director;
 use SilverStripe\Core\Injector\Injector;
+use SilverStripe\Dev\Deprecation;
 use SilverStripe\ORM\FieldType\DBComposite;
 use SilverStripe\ORM\ValidationException;
 use SilverStripe\ORM\ValidationResult;
@@ -510,9 +511,13 @@ class DBFile extends DBComposite implements AssetContainer, Thumbnail
      * @param ValidationResult $result
      * @param string $filename Optional filename to validate. If omitted, the current value is validated.
      * @return bool Valid flag
+     * @deprecated 2.4.0 Will be renamed to validateFilename()
      */
     public function validate(ValidationResult $result, $filename = null)
     {
+        Deprecation::withSuppressedNotice(function () {
+            Deprecation::notice('2.4.0', 'Will be renamed to validateFilename()');
+        });
         if (empty($filename)) {
             $filename = $this->getFilename();
         }
